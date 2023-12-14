@@ -10,32 +10,31 @@ class CustomPhoneTextFormField extends StatelessWidget {
   final Color? prefixIconColor;
   final void Function(CountryCode)? onChanged;
 
-  const CustomPhoneTextFormField({super.key,
+  const CustomPhoneTextFormField({
+    super.key,
     required this.controller,
-
     this.validator,
     this.onTap,
-    this.prefixIconColor, this.onChanged,
+    this.prefixIconColor,
+    this.onChanged,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.phone,
+      keyboardType: TextInputType.text,
       validator: validator,
       onTap: onTap,
       obscureText: false,
       decoration: InputDecoration(
         prefixIcon: CountryCodePicker(
-
           showDropDownButton: true,
           onChanged: onChanged,
           initialSelection: 'US',
           //favorite: const ['+02','EG'],
         ),
         prefixIconColor: prefixIconColor,
-
         hintText: "Phone Number",
         hintStyle: const TextStyle(
           fontSize: 14,
@@ -55,6 +54,4 @@ class CustomPhoneTextFormField extends StatelessWidget {
       ),
     );
   }
-
-
 }
