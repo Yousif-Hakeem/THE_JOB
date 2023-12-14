@@ -99,7 +99,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
           builder: (context, state) {
             if (cubit.profileDetails.isNotEmpty) {
               return Text(
-                cubit.profileDetails[0].interestedWork!,
+                cubit.profileDetails[0].interestedWork ?? "",
                 // 'Flutter Developer',
                 style: TextStyle(
                   color: AppTheme.neutral5,

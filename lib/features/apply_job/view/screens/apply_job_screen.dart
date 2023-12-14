@@ -32,10 +32,10 @@ class _FormStepsState extends State<ApplyJob> {
 
   @override
   void dispose() {
-   // _pageController.dispose();
-    usernameController.text='';
-    emailController.text='';
-    phoneController.text='';
+    // _pageController.dispose();
+    usernameController.text = '';
+    emailController.text = '';
+    phoneController.text = '';
     super.dispose();
   }
 
@@ -53,18 +53,16 @@ class _FormStepsState extends State<ApplyJob> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              if(cubit.currentStep == 0){
+              if (cubit.currentStep == 0) {
                 cubit.currentStep = 0;
-                Navigator.pushNamedAndRemoveUntil(context, AppRoute.layoutScreen, (route) => false);
-              }
-              else{
+                Navigator.pushNamedAndRemoveUntil(
+                    context, AppRoute.layoutScreen, (route) => false);
+              } else {
                 cubit.minusStep();
                 _pageController.animateToPage(cubit.currentStep,
                     duration: const Duration(milliseconds: 500),
                     curve: Curves.decelerate);
-
               }
-
             },
             icon: const Icon(Iconsax.arrow_left),
           ),
@@ -136,24 +134,26 @@ class _FormStepsState extends State<ApplyJob> {
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: BlocConsumer<JobCubit, JobState>(
-                listener: (context, state){
-                  if(state is ApplyJobSuccessState){
-                    showSuccessSnackBar(context: context, message: 'Job Applied Successfully');
+                listener: (context, state) {
+                  if (state is ApplyJobSuccessState) {
+                    showSuccessSnackBar(
+                        context: context, message: 'Job Applied Successfully');
 
-                    Navigator.pushNamed(context, AppRoute.applyJobSuccessfullyScreen);
+                    Navigator.pushNamed(
+                        context, AppRoute.applyJobSuccessfullyScreen);
                     cubit.currentStep = 0;
+                  } else if (state is ApplyJobErrorState) {
+                    showErrorSnackBar(
+                        context: context,
+                        message:
+                            'There is something went wrong.Please Check You Selected Your CV and Other File');
                   }
-                  else if(state is ApplyJobErrorState){
-                    showErrorSnackBar(context: context, message: 'There is something went wrong.Please Check You Selected Your CV and Other File');
-
-                  }
-
                 },
                 builder: (context, state) {
-                  if(state is! ApplyJobLoadingState){
+                  if (state is! ApplyJobLoadingState) {
                     return CustomElevatedButton(() {
                       if (cubit.currentStep < 2) {
-                        if(formKey.currentState!.validate()){
+                        if (formKey.currentState!.validate()) {
                           cubit.addStep();
 
                           _pageController.animateToPage(cubit.currentStep,
@@ -161,18 +161,16 @@ class _FormStepsState extends State<ApplyJob> {
                               curve: Curves.decelerate);
                         }
                       } else {
-                        cubit.applyJob(usernameController.text, emailController.text, phoneController.text, widget.jobData.id.toString());
-
-
-
+                        cubit.applyJob(
+                            usernameController.text,
+                            emailController.text,
+                            phoneController.text,
+                            widget.jobData.id.toString());
                       }
                     }, cubit.currentStep < 2 ? 'Next' : 'Submit');
-                  }
-                  else{
+                  } else {
                     return const Center(child: CircularProgressIndicator());
                   }
-
-
                 },
               ),
             ),

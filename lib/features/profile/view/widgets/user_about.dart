@@ -60,7 +60,7 @@ class _UserAboutState extends State<UserAbout> {
           builder: (context, state) {
             if (cubit.profileDetails.isNotEmpty) {
               return Text(
-                cubit.profileDetails[0].bio!,
+                cubit.profileDetails[0].bio ?? '',
                 // 'As a Flutter developer, I am passionate about creating intuitive and visually appealing user experiences. I blend creativity with user-centered design principles to craft interfaces that engage and delight users. With a keen eye for detail, I strive to optimize usability and accessibility to ensure a seamless interaction. Through research and prototyping.',
                 style: TextStyle(
                   color: AppTheme.neutral5,
